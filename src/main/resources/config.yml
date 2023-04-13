@@ -1,0 +1,8 @@
+#撮影補佐プログラム(Recording Assistant Plugin)
+#created by Mochidsuki
+#無断転載を禁ずる。
+
+#ピン機能を有効にするかどうか
+Pin:
+  Enable_Pin: false
+  Pin_item: FILLED_MAP

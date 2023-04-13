@@ -8,7 +8,11 @@ public final class RecordingAssistant extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         getLogger().info("Recording Assistant Pluginが覚醒!!");
+        getServer().getPluginManager().registerEvents(new Listener(), this);
 
+
+        Config config = new Config(this);
+        config.load();
     }
 
     @Override
