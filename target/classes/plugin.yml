@@ -1,0 +1,6 @@
+name: RecordingAssistant
+version: '1.0-SNAPSHOT'
+main: net.colsika.mochidsuki.recordingassistant.RecordingAssistant
+api-version: 1.19
+
+softdepend: [ ProtocolLib ]
