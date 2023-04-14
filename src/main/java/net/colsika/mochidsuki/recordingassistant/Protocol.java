@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.UUID;
-
 public class Protocol {
     public void pushPin(Player player, Location[] location,boolean[] b,EntityType entityType,int entityIdPlus) {
         int entityId = 10000 + entityIdPlus;
@@ -34,6 +33,7 @@ public class Protocol {
 
 
             entityId++;
+
             PacketContainer packet0 = new PacketContainer(PacketType.Play.Server.SPAWN_ENTITY);
 
             packet0.getIntegers().write(0, entityId);
@@ -89,3 +89,4 @@ public class Protocol {
     }
 
 }
+
