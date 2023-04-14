@@ -9,6 +9,7 @@ import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.HashMap;
 
@@ -44,8 +45,6 @@ public final class RecordingAssistant extends JavaPlugin {
     }
 }
 
-class v{
-    static HashMap<Player, Location> pin = new HashMap<>();
-    static HashMap<Player, Location> pinRed = new HashMap<>();
-    static BossBar bossBar = RecordingAssistant.getPlugin().getServer().createBossBar("RecordingAssistant's Boss Bar", BarColor.YELLOW, BarStyle.SEGMENTED_10);
+class BukkitRunnableList{
+    static public BukkitRunnable timer = null;
 }
