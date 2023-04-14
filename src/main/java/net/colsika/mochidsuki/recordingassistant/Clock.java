@@ -10,9 +10,9 @@ import javax.annotation.Nullable;
 
 public class Clock {
     public void startTimer(@Nonnull DisplayType displayType,int time, @Nullable String tittle, @Nullable Sound sound){
-
         try {
             BukkitRunnableList.timer.cancel();
+            v.bossBar.setVisible(false);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -25,6 +25,7 @@ public class Clock {
     public enum DisplayType {
         BOSS_BAR,
         ACTION_BAR,
+        CHAT,
         INVISIBLE
     }
 }
