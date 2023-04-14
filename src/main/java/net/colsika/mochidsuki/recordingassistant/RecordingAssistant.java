@@ -3,6 +3,9 @@ package net.colsika.mochidsuki.recordingassistant;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import org.bukkit.Location;
+import org.bukkit.boss.BarColor;
+import org.bukkit.boss.BarStyle;
+import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -17,6 +20,7 @@ public final class RecordingAssistant extends JavaPlugin {
         // Plugin startup logic
         getLogger().info("Recording Assistant Pluginが覚醒!!");
         getServer().getPluginManager().registerEvents(new Listener(), this);
+        getCommand("ra").setExecutor(new CommandListener()); //ra
 
         protocolManager = ProtocolLibrary.getProtocolManager();
 
@@ -24,6 +28,9 @@ public final class RecordingAssistant extends JavaPlugin {
 
         Config config = new Config(this);
         config.load();
+
+        v.bossBar = getServer().createBossBar("RecordingAssistant's Boss Bar", BarColor.YELLOW, BarStyle.SEGMENTED_10);
+        v.bossBar.setVisible(false);
     }
 
     @Override
@@ -40,4 +47,5 @@ public final class RecordingAssistant extends JavaPlugin {
 class v{
     static HashMap<Player, Location> pin = new HashMap<>();
     static HashMap<Player, Location> pinRed = new HashMap<>();
+    static BossBar bossBar = RecordingAssistant.getPlugin().getServer().createBossBar("RecordingAssistant's Boss Bar", BarColor.YELLOW, BarStyle.SEGMENTED_10);
 }
