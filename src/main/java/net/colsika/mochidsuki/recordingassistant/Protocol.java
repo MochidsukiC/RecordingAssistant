@@ -11,11 +11,11 @@ import org.bukkit.entity.Player;
 import java.lang.reflect.InvocationTargetException;
 import java.util.UUID;
 public class Protocol {
-    public void pushPin(Player player, Location[] location,boolean[] b,EntityType entityType,int entityIdPlus) {
+    public void pushPin(Player player, Location[] location, EntityType entityType, int entityIdPlus) {
         int entityId = 10000 + entityIdPlus;
 
 
-        for(int i = 0;i <=2;i++) {
+        for(int i = 0;i <=location.length;i++) {
 
             Location loc = new Location(player.getWorld(),0,0,0);
             double x = location[i].getX() - player.getLocation().getX();
@@ -50,7 +50,7 @@ public class Protocol {
 
             byte bitmask = 0x00; // First bitmask, 0x00 by default
             bitmask |= 0x20; // is invisible
-            if(b[i]) {
+            if(location[i] != null) {
                 bitmask |= 0x40; // is glowing
             }
 

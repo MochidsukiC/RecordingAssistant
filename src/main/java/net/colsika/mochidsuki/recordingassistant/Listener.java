@@ -13,27 +13,23 @@ public class Listener implements org.bukkit.event.Listener {
     @EventHandler
     public void PlayerInteractEvent(PlayerInteractEvent event) {
         if (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK) {
-            if (event.getItem() != null) {
-                if (Config.enablePin && event.getItem().getType() == Config.pinItem) {
-                    if (event.getPlayer().getTargetBlockExact(400) != null) {
-                        v.pin.put(event.getPlayer(), event.getPlayer().getTargetBlockExact(400).getLocation());
-
-                        Team playerTeam = event.getPlayer().getScoreboard().getEntryTeam(event.getPlayer().getName());
-                        for (String entry : playerTeam.getEntries()) {
-                            if (event.getPlayer().getServer().getOnlinePlayers().contains(Bukkit.getPlayer(entry))) {
-                                Player teammate = Bukkit.getPlayer(entry);
-                                teammate.playSound(teammate.getLocation(), Sound.BLOCK_NOTE_BLOCK_FLUTE, 100, 0);
-                            }
+            if (Config.enablePin && event.getMaterial() == Config.pinItem) {
+                if (event.getPlayer().getTargetBlockExact(400) != null) {
+                    v.pin.put(event.getPlayer(), event.getPlayer().getTargetBlockExact(400).getLocation());
+                    Team playerTeam = event.getPlayer().getScoreboard().getEntryTeam(event.getPlayer().getName());
+                    for (String entry : playerTeam.getEntries()) {
+                        if (event.getPlayer().getServer().getOnlinePlayers().contains(Bukkit.getPlayer(entry))) {
+                            Player teammate = Bukkit.getPlayer(entry);
+                            teammate.playSound(teammate.getLocation(), Sound.BLOCK_NOTE_BLOCK_FLUTE, 100, 0);
                         }
-
-                    } else {
-                        v.pin.remove(event.getPlayer());
-                        event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 0.5F, 1);
                     }
+                } else {
+                    v.pin.remove(event.getPlayer());
+                    event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.BLOCK_FIRE_EXTINGUISH, 0.5F, 1);
                 }
             }
         } else if (event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.RIGHT_CLICK_AIR) {
-            if (Config.enablePin && event.getItem().getType() == Config.pinItem) {
+            if (Config.enablePin && event.getMaterial() == Config.pinItem) {
                 if (event.getPlayer().getTargetBlockExact(400) != null) {
                     v.pinRed.put(event.getPlayer(), event.getPlayer().getTargetBlockExact(400).getLocation());
 
