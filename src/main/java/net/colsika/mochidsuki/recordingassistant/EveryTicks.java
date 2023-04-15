@@ -2,6 +2,7 @@ package net.colsika.mochidsuki.recordingassistant;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Team;
@@ -26,7 +27,7 @@ public class EveryTicks extends BukkitRunnable {
                     i++;
                 }
                 Protocol protocol = new Protocol();
-                protocol.pushPin(player,location);
+                protocol.pushPin(player,location, EntityType.FIREBALL,0);
             }else {
 
             }

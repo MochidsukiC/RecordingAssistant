@@ -1,2 +1,13 @@
-net\colsika\mochidsuki\recordingassistant\Config.class
+net\colsika\mochidsuki\recordingassistant\Scheduler\TimerScheduler$1.class
+net\colsika\mochidsuki\recordingassistant\EveryTicks.class
+net\colsika\mochidsuki\recordingassistant\Protocol.class
+net\colsika\mochidsuki\recordingassistant\Scheduler\TimerScheduler.class
 net\colsika\mochidsuki\recordingassistant\Listener.class
+net\colsika\mochidsuki\recordingassistant\Clock.class
+net\colsika\mochidsuki\recordingassistant\Clock$DisplayType.class
+net\colsika\mochidsuki\recordingassistant\CommandListener.class
+net\colsika\mochidsuki\recordingassistant\BukkitRunnableList.class
+net\colsika\mochidsuki\recordingassistant\Config.class
+net\colsika\mochidsuki\recordingassistant\EasyMetadataPacket.class
+net\colsika\mochidsuki\recordingassistant\v.class
+net\colsika\mochidsuki\recordingassistant\RecordingAssistant.class

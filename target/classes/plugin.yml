@@ -4,3 +4,11 @@ main: net.colsika.mochidsuki.recordingassistant.RecordingAssistant
 api-version: 1.19
 
 softdepend: [ ProtocolLib ]
+
+commands:
+  ra:
+    aliases: [RecordingAssistant]
+    description: ゲームのラウンド進行状況
+    permission: battleroyale2.command.gamelound
+    permission-message: Permission denied
+    usage: Banana
