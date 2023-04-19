@@ -1,4 +1,4 @@
-# Recording Assistant Plugin(撮影補佐プラグイン)
+# Recording Assistant Plugin(撮影補佐プラグイン) α版
 このプラグインは主にマインクラフトのサーバーでの企画や撮影を補助するために開発されました。
 
 搭載機能
