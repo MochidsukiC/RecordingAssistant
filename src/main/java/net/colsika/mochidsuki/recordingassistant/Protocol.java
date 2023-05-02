@@ -22,10 +22,10 @@ public class Protocol {
             double y = location[i].getY() - player.getLocation().getY();
             double z = location[i].getZ() - player.getLocation().getZ();
             double d =Math.sqrt(Math.abs(y * y + (x * x + z * z)));
-            if (d > 160) {
-                loc.setX(player.getLocation().getX()+x*160/d);
-                loc.setY(player.getLocation().getY()+y*160/d);
-                loc.setZ(player.getLocation().getZ()+z*160/d);
+            if (d > 100) {
+                loc.setX(player.getLocation().getX()+x*100/d);
+                loc.setY(player.getLocation().getY()+y*100/d);
+                loc.setZ(player.getLocation().getZ()+z*100/d);
             }else {
                 loc = location[i];
             }
