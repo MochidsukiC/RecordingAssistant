@@ -22,6 +22,7 @@ public final class RecordingAssistant extends JavaPlugin {
         getLogger().info("Recording Assistant Pluginが覚醒!!");
         getServer().getPluginManager().registerEvents(new Listener(), this);
         getCommand("ra").setExecutor(new CommandListener()); //ra
+        getCommand("timer").setExecutor(new CommandListener()); //timer
 
         protocolManager = ProtocolLibrary.getProtocolManager();
 
@@ -32,6 +33,8 @@ public final class RecordingAssistant extends JavaPlugin {
 
         v.bossBar = getServer().createBossBar("RecordingAssistant's Boss Bar", BarColor.YELLOW, BarStyle.SEGMENTED_10);
         v.bossBar.setVisible(false);
+
+        new EveryTicks().runTaskTimer(this,0L,1);
     }
 
     @Override
