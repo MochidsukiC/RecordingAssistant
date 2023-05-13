@@ -6,6 +6,7 @@ import net.colsika.mochidsuki.recordingassistant.v;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -19,11 +20,13 @@ public class TimerScheduler extends BukkitRunnable {
     double fullTime;
     String title;
     Sound sound;
-    public TimerScheduler(@Nonnull Clock.DisplayType displayType, int time, @Nullable String tittle, @Nullable Sound sound){
+    Location location;
+    public TimerScheduler(@Nonnull Clock.DisplayType displayType, int time, @Nullable String tittle, @Nullable Sound sound, @Nullable Location location){
         this.displayType = displayType;
         this.time = time;
         this.title = tittle;
         this.sound = sound;
+        this.location = location;
         fullTime = time;
     }
     @Override
@@ -31,7 +34,7 @@ public class TimerScheduler extends BukkitRunnable {
         if(time > 0){
             time = time -1;
             switch (displayType){
-                case BOSS_BAR:
+                case BOSSBAR:
                     for (Player player : RecordingAssistant.getPlugin().getServer().getOnlinePlayers()) {
                         v.bossBar.addPlayer(player);
                     }
@@ -82,6 +85,11 @@ public class TimerScheduler extends BukkitRunnable {
                 }
                 if(sound != null){
                     player.playSound(player,sound,1,1);
+                }
+                if(location != null) {
+                    for(Player player1 : RecordingAssistant.getPlugin().getServer().getOnlinePlayers()){
+                        player1.teleport(location);
+                    }
                 }
             }
 

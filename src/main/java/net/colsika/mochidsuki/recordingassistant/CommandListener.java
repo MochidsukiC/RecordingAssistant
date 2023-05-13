@@ -1,12 +1,16 @@
 package net.colsika.mochidsuki.recordingassistant;
 
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.Sound;
+import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 public class CommandListener implements CommandExecutor {
     @Override
@@ -24,18 +28,66 @@ public class CommandListener implements CommandExecutor {
         }
         if(command.getName().equalsIgnoreCase("timer")){
             if(args.length == 0 || args[0].equals("help")){
-            sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD +"/timer" + ChatColor.RESET + "- タイマーコマンド");
-            String message = "タイマースタート" + "\n" +
-                    ChatColor.AQUA+ChatColor.BOLD+ "/timer start" + ChatColor.RESET+ ChatColor.GREEN + "[表示場所]" + ChatColor.BLUE + " [時間]"+ ChatColor.GREEN +" <タイムアップした時に表示するタイトル> <タイムアップした時に流すサウンド> <タイムアップした時にテレポートする座標>" + "\n" +
-                    ChatColor.GREEN+ChatColor.BOLD+ "  [表示場所] - " + ChatColor.RESET + "タイマーの残り時間を表示するは所を指定します。" + "\n"+
-                    "               表示場所の種類" + "\n"+
-                    ChatColor.GREEN+ChatColor.BOLD + "                 bossbar" + ChatColor.RESET + "- ボスバーに時間を表示します" + "\n"+
-                    ChatColor.GREEN+ChatColor.BOLD + "               actionbar" + ChatColor.RESET + "- アクションバーに時間を表示します" + "\n"+
-                    ChatColor.GREEN+ChatColor.BOLD + "                    chat" + ChatColor.RESET + "- 残り時間を定期的にチャットでお知らせします" + "\n"+
-                    ChatColor.GREEN+ChatColor.BOLD + "               invisible" + ChatColor.RESET + "- 残り時間を表示しません" + "\n"+
-                    ChatColor.BLUE+ChatColor.BOLD+ "  [時間] - " + ChatColor.RESET + "タイマーで計測する時間を秒で指定します。" + "\n"+
-                    ChatColor.GREEN+ChatColor.BOLD+ "  <タイムアップした時に表示するタイトル> - " + ChatColor.RESET + "タイマーで計測する時間を秒で指定します。";
-            sender.sendMessage(message);
+            sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD +"/timer" + ChatColor.RESET + "- タイマーコマンド" + "\n" +
+                    "使い方はこちらのWikiを参照してください。" + "\n" +
+                    ChatColor.BLUE+ChatColor.UNDERLINE+"https://github.com/MochidsukiC/RecordingAssistant/wiki/コマンド#タイマーを開始する");
+            } else if (args[0].equalsIgnoreCase("start")){
+                String args1 = args[1].toUpperCase();
+                if(args1.equalsIgnoreCase("BOSSBAR") || args1.equalsIgnoreCase("ACTIONBAR") || args1.equalsIgnoreCase("CHAT") || args1.equalsIgnoreCase("INVISIBLE")) {
+                    Clock.DisplayType displayType = Clock.DisplayType.valueOf(args1);
+                    if(args[2].chars().allMatch(Character::isDigit)){
+                        String title = null;
+                        Sound sound = null;
+                        Location location = null;
+                        if(args.length > 3 && !args[3].equalsIgnoreCase("null")){
+                            title = args[3];
+                        }
+                        if(args.length > 4 && !args[4].equalsIgnoreCase("null")){
+                            sound = Sound.valueOf(args[4]);
+                        }
+                        if(args.length > 5 && !args[5].equalsIgnoreCase("null")){
+                            try {
+                                World world = sender.getServer().getWorld("cxm");
+                                try {
+                                    Block b = (Block) sender;
+                                    world = b.getWorld();
+                                } catch (Exception e) {
+                                }
+
+                                try {
+                                    Player player = (Player) sender;
+                                    world = player.getWorld();
+                                } catch (Exception e) {
+                                }
+                                location = new Location(world, Double.parseDouble(args[5]), Double.parseDouble(args[6]), Double.parseDouble(args[7]));
+                            }catch (Exception e){
+                                sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD +"/timer" + ChatColor.RESET + "- タイマーコマンド" + "\n" +
+                                    ChatColor.GREEN + "<TP先>" + ChatColor.RESET +"が正しく指定されていません。" + "\n" +
+                                    "詳細はこちらのWikiを参照してください。" + "\n" +
+                                    ChatColor.BLUE+ChatColor.UNDERLINE+"https://github.com/MochidsukiC/RecordingAssistant/wiki/コマンド#タイマーを開始する");
+                                return true;
+                            }
+                        }
+                        new Clock().startTimer(displayType,Integer.parseInt(args[2]),title,sound,location);
+
+                    }else {
+                        sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD +"/timer" + ChatColor.RESET + "- タイマーコマンド" + "\n" +
+                            ChatColor.BLUE + "[計測時間]" + ChatColor.RESET +"が正しく指定されていません。" + "\n" +
+                            "詳細はこちらのWikiを参照してください。" + "\n" +
+                            ChatColor.BLUE+ChatColor.UNDERLINE+"https://github.com/MochidsukiC/RecordingAssistant/wiki/コマンド#タイマーを開始する");
+                        return true;
+                    }
+                }else {
+                    sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD +"/timer" + ChatColor.RESET + "- タイマーコマンド" + "\n" +
+                            ChatColor.GREEN + "[表示場所]" + ChatColor.RESET +"が正しく指定されていません。" + "\n" +
+                            "詳細はこちらのWikiを参照してください。" + "\n" +
+                            ChatColor.BLUE+ChatColor.UNDERLINE+"https://github.com/MochidsukiC/RecordingAssistant/wiki/コマンド#タイマーを開始する");
+                    return true;
+                }
+            } else if (args[0].equalsIgnoreCase("stop")) {
+
+            } else if (args[0].equalsIgnoreCase("reset")) {
+
             }
         }
         return true;
