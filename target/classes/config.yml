@@ -1,8 +1,10 @@
 #撮影補佐プログラム(Recording Assistant Plugin)
 #created by Mochidsuki
-#無断転載を禁ずる。
+#権利についてはこちらをご覧ください -> https://github.com/MochidsukiC/RecordingAssistant/blob/master/README.md
 
-#ピン機能を有効にするかどうか
+#ピン機能
 Pin:
+  #ピン機能をを有効にするかどうか
   Enable_Pin: false
+  #ピンを指すアイテムを指定。
   Pin_item: FILLED_MAP
