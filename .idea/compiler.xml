@@ -9,8 +9,5 @@
         <module name="RecordingAssistant" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="RecordingAssistant" target="9" />
-    </bytecodeTargetLevel>
   </component>
 </project>
