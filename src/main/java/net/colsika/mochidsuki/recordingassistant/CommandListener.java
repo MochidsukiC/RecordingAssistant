@@ -47,7 +47,7 @@ public class CommandListener implements CommandExecutor {
                         }
                         if(args.length > 5 && !args[5].equalsIgnoreCase("null")){
                             try {
-                                World world = sender.getServer().getWorld("cxm");
+                                World world = sender.getServer().getWorld("world");
                                 try {
                                     Block b = (Block) sender;
                                     world = b.getWorld();

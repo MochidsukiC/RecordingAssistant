@@ -1,5 +1,6 @@
 package net.colsika.mochidsuki.recordingassistant.Scheduler;
 
+import net.colsika.mochidsuki.recordingassistant.BukkitRunnableList;
 import net.colsika.mochidsuki.recordingassistant.Clock;
 import net.colsika.mochidsuki.recordingassistant.RecordingAssistant;
 import net.colsika.mochidsuki.recordingassistant.v;
@@ -32,7 +33,9 @@ public class TimerScheduler extends BukkitRunnable {
     @Override
     public void run() {
         if(time > 0){
-            time = time -1;
+            if(BukkitRunnableList.timerEnable) {
+                time = time - 1;
+            }
             switch (displayType){
                 case BOSSBAR:
                     for (Player player : RecordingAssistant.getPlugin().getServer().getOnlinePlayers()) {
@@ -58,11 +61,11 @@ public class TimerScheduler extends BukkitRunnable {
                         }
                     }else if (time == 30){
                         for (Player player : RecordingAssistant.getPlugin().getServer().getOnlinePlayers()) {
-                            player.sendMessage("残り30秒!何をしているのかは知らないが急げ!!");
+                            player.sendMessage("たぶん残り30秒!!!");
                         }
                     }else if (time == 20){
                         for (Player player : RecordingAssistant.getPlugin().getServer().getOnlinePlayers()) {
-                            player.sendMessage("残り20秒!バナナを食べてる暇はないぞ!!");
+                            player.sendMessage("のこりにじゅーびょうー!!");
                         }
                     }else if(time <= 10){
                         if(time <= 5){
@@ -92,9 +95,16 @@ public class TimerScheduler extends BukkitRunnable {
                     }
                 }
             }
-
-            cancel();
+            Clock.resetTimer();
         }
 
+    }
+
+    public void timeReseter(){
+    time = (int) fullTime;
+    }
+
+    public int getTime(){
+        return time;
     }
 }

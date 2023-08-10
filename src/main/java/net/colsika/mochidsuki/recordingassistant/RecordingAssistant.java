@@ -48,6 +48,3 @@ public final class RecordingAssistant extends JavaPlugin {
     }
 }
 
-class BukkitRunnableList{
-    static public BukkitRunnable timer = null;
-}
