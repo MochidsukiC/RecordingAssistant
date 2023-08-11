@@ -1,5 +1,6 @@
 package net.colsika.mochidsuki.recordingassistant;
 
+import net.colsika.mochidsuki.recordingassistant.Scheduler.StopWatchScheduler;
 import net.colsika.mochidsuki.recordingassistant.Scheduler.TimerScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -11,7 +12,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Clock {
@@ -38,14 +38,17 @@ public class Clock {
         sendTimeStamp();
         v.timerStamp.clear();
      }
-    static public void restartTimer(){
+    static public boolean restartTimer(){
          if(BukkitRunnableList.timerEnable) {
              ((TimerScheduler) BukkitRunnableList.timer).timeReseter();
 
              sendTimeStamp();
              v.timerStamp.clear();
+
+             return true;
          }else {
              BukkitRunnableList.timerEnable = true;
+             return false;
          }
     }
 
@@ -102,6 +105,55 @@ public class Clock {
             }
             Bukkit.getServer().getLogger().info(string.toString());
         }
+    }
+
+    static public void startStopWatch(Player player,DisplayType type){
+        if(BukkitRunnableList.stopWatch.containsKey(player)){
+            BukkitRunnableList.stopWatch.get(player).cancel();
+        }
+
+        StopWatchScheduler runnable = new StopWatchScheduler(player,type);
+        runnable.setEnable(true);
+        runnable.runTaskTimer(RecordingAssistant.getPlugin(),0,20);
+        BukkitRunnableList.stopWatch.put(player,runnable);
+    }
+
+    static public void stopStopWatch(Player player){
+        ((StopWatchScheduler)BukkitRunnableList.stopWatch.get(player)).setEnable(false);
+    }
+    static public void restartStopWatch(Player player){
+        ((StopWatchScheduler)BukkitRunnableList.stopWatch.get(player)).setEnable(true);
+    }
+    static public void rapStopWatch(Player player){
+        int i =((TimerScheduler)BukkitRunnableList.stopWatch.get(player)).getTime();
+        List<Integer> list;
+        if(v.stopWatchRap.containsKey(player)){
+            list = new ArrayList<>(v.stopWatchRap.get(player));
+            list.add(i);
+        }else {
+            list = new ArrayList<>(List.of(i));
+        }
+        v.stopWatchRap.put(player,list);
+    }
+    static public int resetStopWatch(Player player){
+         int time = ((StopWatchScheduler)BukkitRunnableList.stopWatch.get(player)).getTime();
+         BukkitRunnableList.stopWatch.get(player).cancel();
+         return time;
+    }
+
+    static public void sendRap(Player player){
+         if(v.stopWatchRap.containsKey(player)){
+             List<Integer> l = new ArrayList<>();
+             try {
+                 l = v.stopWatchRap.get(player);
+             } catch (Exception ignored) {
+             }
+             player.sendMessage(ChatColor.GREEN + "ラップ表");
+             for (int i = 0; i < l.size(); i++) {
+                 String message = "|" + ChatColor.AQUA + String.format("%2d", i) + ChatColor.RESET + " | " + ChatColor.YELLOW + String.format("%3d", l.get(i) / 60) + ":" + String.format("%02d", l.get(i) % 60) + ChatColor.RESET + " |";
+                 player.sendMessage(message);
+             }
+         }
     }
 
     public enum DisplayType {

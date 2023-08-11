@@ -9,6 +9,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.boss.BarColor;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -41,6 +42,11 @@ public class TimerScheduler extends BukkitRunnable {
                     for (Player player : RecordingAssistant.getPlugin().getServer().getOnlinePlayers()) {
                         v.bossBar.addPlayer(player);
                     }
+                    if(BukkitRunnableList.timerEnable){
+                     v.bossBar.setColor(BarColor.GREEN);
+                    }else {
+                        v.bossBar.setColor(BarColor.RED);
+                    }
                     v.bossBar.setVisible(true);
                     v.bossBar.setTitle("残り" + time/60 + ":" + time%60);
                     v.bossBar.setProgress(time / fullTime);
@@ -48,7 +54,13 @@ public class TimerScheduler extends BukkitRunnable {
                 case ACTIONBAR:
                     for (Player player : RecordingAssistant.getPlugin().getServer().getOnlinePlayers()) {
                         TextComponent component = new TextComponent();
-                        component.setText("残り" + time/60 + ":" + time%60);
+                        ChatColor color;
+                        if(BukkitRunnableList.timerEnable){
+                            color = ChatColor.WHITE;
+                        }else {
+                            color = ChatColor.GOLD;
+                        }
+                        component.setText(color + "残り" + time/60 + ":" + time%60);
                         player.spigot().sendMessage(ChatMessageType.ACTION_BAR,component);
                     }
                     break;

@@ -101,10 +101,62 @@ public class CommandListener implements CommandExecutor {
                 }
             } else if (args[0].equalsIgnoreCase("stop")) {
                 Clock.stopTimer();
+                sender.sendMessage(ChatColor.GOLD + "タイマーを一時停止しました");
             } else if (args[0].equalsIgnoreCase("restart")) {
-                Clock.restartTimer();
+                boolean b = Clock.restartTimer();
+                if(b){
+                    sender.sendMessage(ChatColor.AQUA + "タイマーを再スタートします");
+                }else {
+                    sender.sendMessage(ChatColor.GREEN + "タイマーを再開します");
+                }
             } else if (args[0].equalsIgnoreCase("reset")) {
+                sender.sendMessage(ChatColor.LIGHT_PURPLE + "タイマーを終了しました");
                 Clock.resetTimer();
+            }
+        }
+        if(command.getName().equalsIgnoreCase("stopwatch")){
+            if(args.length > 0){
+                switch (args[0]){
+                    case "start": {
+                        if (args.length > 1 && (args[1].equalsIgnoreCase("BOSSBAR") || args[1].equalsIgnoreCase("ACTIONBAR") || args[1].equalsIgnoreCase("CHAT") || args[1].equalsIgnoreCase("INVISIBLE"))) {
+                            if(args.length>2){
+                                for(Player player : Selector_AutoComleter.toPlayers(sender,args[2])){
+                                    String args1 = args[1].toUpperCase();
+                                    Clock.DisplayType displayType = Clock.DisplayType.valueOf(args1);
+                                    Clock.startStopWatch(player,displayType);
+                                    sender.sendMessage(ChatColor.GREEN + "ストップウォッチを開始しました");
+                                }
+                            }else {
+                                try {
+                                    String args1 = args[1].toUpperCase();
+                                    Clock.DisplayType displayType = Clock.DisplayType.valueOf(args1);
+                                    Clock.startStopWatch((Player) sender, displayType);
+                                    sender.sendMessage(ChatColor.GREEN + "ストップウォッチを開始しました");
+                                }catch (Exception e){
+                                    sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD +"/stopwatch" + ChatColor.RESET + "- ストップウォッチコマンド" + "\n" +
+                                            ChatColor.BLUE + "[セレクター]" + ChatColor.RESET +"が正しく指定されていません。" + "\n" +
+                                            "詳細はこちらのWikiを参照してください。" + "\n" +
+                                            ChatColor.BLUE+ChatColor.UNDERLINE+"https://github.com/MochidsukiC/RecordingAssistant/wiki/コマンド#ストップウォッチを開始する");
+
+                                }
+                            }
+                        }else {
+                            sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD +"/stopwatch" + ChatColor.RESET + "- ストップウォッチコマンド" + "\n" +
+                                    ChatColor.BLUE + "[表示場所]" + ChatColor.RESET +"が正しく指定されていません。" + "\n" +
+                                    "詳細はこちらのWikiを参照してください。" + "\n" +
+                                    ChatColor.BLUE+ChatColor.UNDERLINE+"https://github.com/MochidsukiC/RecordingAssistant/wiki/コマンド#ストップウォッチを開始する");
+                        }
+                    }
+                        return true;
+                    case "stop":
+                        return true;
+                    case "rap":
+                        return true;
+                    case "reset":
+                        return true;
+                    case "get":
+                        return true;
+                }
             }
         }
         return true;

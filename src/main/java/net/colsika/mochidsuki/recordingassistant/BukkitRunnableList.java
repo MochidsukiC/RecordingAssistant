@@ -9,4 +9,5 @@ import java.util.List;
 public class BukkitRunnableList {
     static public BukkitRunnable timer = null;
     static public boolean timerEnable;
+    static public HashMap<Player,BukkitRunnable> stopWatch = new HashMap<>();
 }
