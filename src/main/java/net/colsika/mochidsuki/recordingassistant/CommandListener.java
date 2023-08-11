@@ -1,5 +1,6 @@
 package net.colsika.mochidsuki.recordingassistant;
 
+import net.colsika.mochidsuki.recordingassistant.Scheduler.TimerScheduler;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -11,6 +12,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CommandListener implements CommandExecutor {
     @Override
@@ -32,10 +35,10 @@ public class CommandListener implements CommandExecutor {
                     "使い方はこちらのWikiを参照してください。" + "\n" +
                     ChatColor.BLUE+ChatColor.UNDERLINE+"https://github.com/MochidsukiC/RecordingAssistant/wiki/コマンド#タイマーを開始する");
             } else if (args[0].equalsIgnoreCase("start")){
-                String args1 = args[1].toUpperCase();
-                if(args1.equalsIgnoreCase("BOSSBAR") || args1.equalsIgnoreCase("ACTIONBAR") || args1.equalsIgnoreCase("CHAT") || args1.equalsIgnoreCase("INVISIBLE")) {
+                if(args.length >= 2 && (args[1].equalsIgnoreCase("BOSSBAR") || args[1].equalsIgnoreCase("ACTIONBAR") || args[1].equalsIgnoreCase("CHAT") || args[1].equalsIgnoreCase("INVISIBLE"))) {
+                    String args1 = args[1].toUpperCase();
                     Clock.DisplayType displayType = Clock.DisplayType.valueOf(args1);
-                    if(args[2].chars().allMatch(Character::isDigit)){
+                    if(args.length >= 3 && args[2].chars().allMatch(Character::isDigit)){
                         String title = null;
                         Sound sound = null;
                         Location location = null;
@@ -51,13 +54,13 @@ public class CommandListener implements CommandExecutor {
                                 try {
                                     Block b = (Block) sender;
                                     world = b.getWorld();
-                                } catch (Exception e) {
+                                } catch (Exception ignored) {
                                 }
 
                                 try {
                                     Player player = (Player) sender;
                                     world = player.getWorld();
-                                } catch (Exception e) {
+                                } catch (Exception ignored) {
                                 }
                                 location = new Location(world, Double.parseDouble(args[5]), Double.parseDouble(args[6]), Double.parseDouble(args[7]));
                             }catch (Exception e){
@@ -68,7 +71,7 @@ public class CommandListener implements CommandExecutor {
                                 return true;
                             }
                         }
-                        new Clock().startTimer(displayType,Integer.parseInt(args[2]),title,sound,location);
+                        Clock.startTimer(displayType,Integer.parseInt(args[2]),title,sound,location);
 
                     }else {
                         sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD +"/timer" + ChatColor.RESET + "- タイマーコマンド" + "\n" +
@@ -84,10 +87,24 @@ public class CommandListener implements CommandExecutor {
                             ChatColor.BLUE+ChatColor.UNDERLINE+"https://github.com/MochidsukiC/RecordingAssistant/wiki/コマンド#タイマーを開始する");
                     return true;
                 }
+            } else if (args[0].equalsIgnoreCase("stamp")) {
+                if(args.length>1) {
+                    for (Player player : Selector_AutoComleter.toPlayers(sender, args[1])) {
+                        Clock.stampTimer(player);
+                    }
+                }else {
+                    try {
+                        Clock.stampTimer((Player) sender);
+                    }catch (Exception e){
+                        return false;
+                    }
+                }
             } else if (args[0].equalsIgnoreCase("stop")) {
-
+                Clock.stopTimer();
+            } else if (args[0].equalsIgnoreCase("restart")) {
+                Clock.restartTimer();
             } else if (args[0].equalsIgnoreCase("reset")) {
-
+                Clock.resetTimer();
             }
         }
         return true;

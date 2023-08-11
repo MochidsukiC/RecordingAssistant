@@ -13,41 +13,41 @@ public class TabCompleter implements org.bukkit.command.TabCompleter {
         List<String> autoFillList = new ArrayList<>();
         if(command.getName().equalsIgnoreCase("ra")){
             switch (args.length){
-                case 0:
+                case 1:
                     autoFillList.add("reload");
                     return autoFillList;
             }
         }
         if(command.getName().equalsIgnoreCase("timer")){
-            if(args.length == 0) {
+            if(args.length == 1) {
                 autoFillList.addAll(Arrays.asList("help", "start","stamp", "stop","restart", "reset"));
                 return autoFillList;
             }else {
                 switch (args[0]) {
                     case "start": {
                         switch (args.length) {
-                            case 1:
+                            case 2:
                                 autoFillList.addAll(Arrays.asList("bossbar", "actionbar", "chat", "invisible"));
                                 return autoFillList;
-                            case 2:
-                                autoFillList.set(0,"[TIME(second)]");
-                                return autoFillList;
                             case 3:
-                                autoFillList.set(0,"<TITLE>");
-                                autoFillList.set(1,"null");
+                                autoFillList.add(0,"[TIME(second)]");
                                 return autoFillList;
                             case 4:
-                                autoFillList.set(0,"<SOUND_ID>");
-                                autoFillList.set(1,"null");
+                                autoFillList.add(0,"<TITLE>");
+                                autoFillList.add(1,"null");
                                 return autoFillList;
                             case 5:
-                                autoFillList.set(0,"<TP_X>");
+                                autoFillList.add(0,"<SOUND_ID>");
+                                autoFillList.add(1,"null");
                                 return autoFillList;
                             case 6:
-                                autoFillList.set(0,"<TP_Y>");
+                                autoFillList.add(0,"<TP_X>");
                                 return autoFillList;
                             case 7:
-                                autoFillList.set(0,"<TP_Z>");
+                                autoFillList.add(0,"<TP_Y>");
+                                return autoFillList;
+                            case 8:
+                                autoFillList.add(0,"<TP_Z>");
                                 return autoFillList;
 
                         }

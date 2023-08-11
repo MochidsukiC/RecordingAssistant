@@ -18,3 +18,9 @@ commands:
     permission: RecordingAssistant.command.timer
     permission-message: Permission denied
     usage: Banana
+  stopwatch:
+    aliases: [ sw ]
+    description: ストップウォッチ
+    permission: RecordingAssistant.command.stopwatch
+    permission-message: Permission denied
+    usage: Banana

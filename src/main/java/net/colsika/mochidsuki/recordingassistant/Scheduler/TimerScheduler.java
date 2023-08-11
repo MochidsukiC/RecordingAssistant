@@ -45,7 +45,7 @@ public class TimerScheduler extends BukkitRunnable {
                     v.bossBar.setTitle("残り" + time/60 + ":" + time%60);
                     v.bossBar.setProgress(time / fullTime);
                     break;
-                case ACTION_BAR:
+                case ACTIONBAR:
                     for (Player player : RecordingAssistant.getPlugin().getServer().getOnlinePlayers()) {
                         TextComponent component = new TextComponent();
                         component.setText("残り" + time/60 + ":" + time%60);

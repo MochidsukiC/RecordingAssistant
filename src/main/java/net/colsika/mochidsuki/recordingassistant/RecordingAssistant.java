@@ -22,8 +22,9 @@ public final class RecordingAssistant extends JavaPlugin {
         getLogger().info("Recording Assistant Pluginが覚醒!!");
         getServer().getPluginManager().registerEvents(new Listener(), this);
         getCommand("ra").setExecutor(new CommandListener()); //ra
+        getCommand("ra").setTabCompleter(new TabCompleter());
         getCommand("timer").setExecutor(new CommandListener()); //timer
-
+        getCommand("Timer").setTabCompleter(new TabCompleter());
         protocolManager = ProtocolLibrary.getProtocolManager();
 
         plugin = this;

@@ -21,12 +21,12 @@ public class Selector_AutoComleter {
         if(Objects.equals(args, "@a")){
             list.addAll(Bukkit.getOnlinePlayers());
             return list;
-        } else if (Objects.equals(args, "@s")) {
+        } else if (Objects.equals(args, "@s") || args == null) {
             list.add((Player) sender);
             return list;
         } else if (Objects.equals(args, "@r")) {
             int r = new Random().nextInt(Bukkit.getOnlinePlayers().size());
-            List<Player> l = new ArrayList(Bukkit.getOnlinePlayers());
+            List<Player> l = new ArrayList<>(Bukkit.getOnlinePlayers());
             list.add(l.get(r));
             return list;
         }else {

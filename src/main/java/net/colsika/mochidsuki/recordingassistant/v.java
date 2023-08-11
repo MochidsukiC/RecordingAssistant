@@ -13,6 +13,6 @@ public class v {
     static public HashMap<Player, Location> pin = new HashMap<>();
     static public HashMap<Player, Location> pinRed = new HashMap<>();
     static public BossBar bossBar = RecordingAssistant.getPlugin().getServer().createBossBar("RecordingAssistant's Boss Bar", BarColor.YELLOW, BarStyle.SEGMENTED_10);
-    static public HashMap<Player, List<Integer>> timerStamp;
+    static public HashMap<Player, List<Integer>> timerStamp = new HashMap<>();
 
 }
