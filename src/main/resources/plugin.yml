@@ -24,3 +24,9 @@ commands:
     permission: RecordingAssistant.command.stopwatch
     permission-message: Permission denied
     usage: Banana
+  randomteam:
+    aliases: [ rt ]
+    description: ランダムチーム
+    permission: RecordingAssistant.command.randomteam
+    permission-message: Permission denied
+    usage: Banana

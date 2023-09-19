@@ -22,10 +22,10 @@ public class CommandListener implements CommandExecutor {
             if(args.length == 0){
                 sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD +"/ra reload" + ChatColor.RESET + "- 設定ファイルの再読み込み");
                 return true;
-            }else if (args[0].equals("reload")){
+            }else if (args[0].equalsIgnoreCase("reload")) {
                 Config config = new Config(RecordingAssistant.getPlugin());
                 config.load();
-                sender.sendMessage( ChatColor.AQUA + "設定ファイルを再読み込みします");
+                sender.sendMessage(ChatColor.AQUA + "設定ファイルを再読み込みします");
                 return true;
             }
         }
@@ -158,6 +158,12 @@ public class CommandListener implements CommandExecutor {
                         return true;
                 }
             }
+        }
+        if(command.getName().equalsIgnoreCase("randomTeam")){
+            sender.sendMessage(ChatColor.AQUA + "" + ChatColor.BOLD +"/randomTeam" + ChatColor.RESET + "- チーム自動振り分けコマンド" + "\n" +
+                    ChatColor.BLUE + "[表示場所]" + ChatColor.RESET +"が正しく指定されていません。" + "\n" +
+                    "詳細はこちらのWikiを参照してください。" + "\n" +
+                    ChatColor.BLUE+ChatColor.UNDERLINE+"https://github.com/MochidsukiC/RecordingAssistant/wiki/コマンド#ストップウォッチを開始する");
         }
         return true;
     }

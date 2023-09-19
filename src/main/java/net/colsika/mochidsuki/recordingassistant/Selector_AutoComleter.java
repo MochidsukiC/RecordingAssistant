@@ -19,7 +19,11 @@ public class Selector_AutoComleter {
     static public Collection<Player> toPlayers(CommandSender sender, String args){
         Collection<Player> list = new ArrayList<>();
         if(Objects.equals(args, "@a")){
-            list.addAll(Bukkit.getOnlinePlayers());
+            if(args.charAt(2) == '['){
+                if(args.contains("team")){
+
+                }
+            }
             return list;
         } else if (Objects.equals(args, "@s") || args == null) {
             list.add((Player) sender);
@@ -29,7 +33,7 @@ public class Selector_AutoComleter {
             List<Player> l = new ArrayList<>(Bukkit.getOnlinePlayers());
             list.add(l.get(r));
             return list;
-        }else {
+        } else {
             list.add(Bukkit.getPlayer(args));
             return list;
         }
