@@ -20,8 +20,19 @@ public class Selector_AutoComleter {
         Collection<Player> list = new ArrayList<>();
         if(Objects.equals(args, "@a")){
             if(args.charAt(2) == '['){
-                if(args.contains("team")){
-
+                if(args.toLowerCase().contains("team=")){
+                    String arg = sortArgs(args,"team");
+                    if(Bukkit.getServer().getScoreboardManager() != null && Bukkit.getServer().getScoreboardManager().getMainScoreboard().getTeam(arg) != null) {
+                        list.addAll((Collection<? extends Player>) Bukkit.getServer().getScoreboardManager().getMainScoreboard().getTeam(arg).getPlayers());
+                    }
+                }
+                if(args.toLowerCase().contains("tag=")){
+                    String arg = sortArgs(args,"tag");
+                    for(Player player : Bukkit.getOnlinePlayers()){
+                        if(player.getScoreboardTags().contains(arg)){
+                            list.add(player);
+                        }
+                    }
                 }
             }
             return list;
@@ -39,5 +50,15 @@ public class Selector_AutoComleter {
         }
 
 
+    }
+    static public String sortArgs(String args,String argumentCode){
+        int top = args.indexOf(argumentCode) + argumentCode.length()+1;
+        StringBuilder sb =  new StringBuilder(args);
+        sb.delete(0,top);
+        args = sb.toString();
+        int end = args.indexOf(",");
+        sb.delete(end,args.length());
+        args = sb.toString();
+        return args;
     }
 }
